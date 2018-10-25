@@ -9,10 +9,9 @@
 namespace app\admin\controller;
 
 
-use think\Controller;
 use think\Request;
 
-class Common extends Controller
+class Common extends Role
 {
 
     public function __construct(Request $request = null)
