@@ -19,7 +19,9 @@ return [
 
     // 视图输出字符串内容替换
     'view_replace_str' => [
-        '__STATIC__' => '/static/admin'
+        '__CSS__' => '/static/admin/css',
+        '__JS__' => '/static/admin/js',
+        '__IMAGE__' => '/static/admin/js'
     ],
 
 ];

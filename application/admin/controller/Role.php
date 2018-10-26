@@ -23,8 +23,8 @@ class Role extends Controller
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
-        $this->controller = $request->controller();
-        $this->action = $request->action();
+        $this->controller = strtolower($request->controller());
+        $this->action = strtolower($request->action());
         $this->check_auth();
     }
 
@@ -37,7 +37,6 @@ class Role extends Controller
     protected function check_auth()
     {
         if (empty($this->uid) || empty($this->role)) {
-            abort(404,'页面不存在');
             return false;
         }
         $check_action = strtolower($this->controller.'_'.$this->action);

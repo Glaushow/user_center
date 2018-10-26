@@ -1,0 +1,33 @@
+/*** common ***/
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/*** login start ***/
+.login-form {
+    width: 600px;
+    height: 450px;
+    margin: 20% auto 0px auto;
+}
+
+.login-form .login-btn {
+    width: 30%;
+}
+
+/*** login end ***/
+
+/*** skin ***/
+.layui-btn {
+    background-color: #636161;
+}
+
+.layui-input {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+}

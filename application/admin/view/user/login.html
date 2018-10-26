@@ -1,0 +1,23 @@
+<div class="login-form">
+    <form action="user/login" method="post" class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="u" lay-verify="required" placeholder="输入用户名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" name="p" lay-verify="required" placeholder="输入密码" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn login-btn fr" lay-submit>登陆</button>
+            </div>
+        </div>
+    </form>
+</div>
