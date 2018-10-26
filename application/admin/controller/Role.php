@@ -37,24 +37,26 @@ class Role extends Controller
     protected function check_auth()
     {
         if (empty($this->uid) || empty($this->role)) {
+            abort(404,'页面不存在');
             return false;
         }
+        $check_action = strtolower($this->controller.'_'.$this->action);
         if($role_data = cache('ROLE_AUTH_DATA')){
             $role_data_array = json_decode($role_data,true);
-            if(isset($role_data_array[$this->role])){
-
+            if(isset($role_data_array[$this->role]) && $role_data_array[$this->role]['action'] == $check_action){
+                return true;
             } else {
                 return false;
             }
         } else {
             if($roleData = model('role')->get_role()){
-                $result = [];
+                $role_data_array = [];
                 foreach($roleData as $row){
-                    $result[$row['role_id']] = $row;
+                    $role_data_array[$row['role_id']] = $row;
                 }
-                cache('ROLE_AUTH_DATA',json_encode($result));
-                if(isset($result[$this->role])){
-
+                cache('ROLE_AUTH_DATA',json_encode($role_data_array));
+                if(isset($role_data_array[$this->role]) && $role_data_array[$this->role]['action'] == $check_action){
+                    return true;
                 } else {
                     return false;
                 }
