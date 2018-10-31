@@ -1,23 +1,36 @@
-<div class="login-form">
-    <form action="user/login" method="post" class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-                <input type="text" name="u" lay-verify="required" placeholder="输入用户名" autocomplete="off"
-                       class="layui-input">
+<div class="full-screen login-box">
+    <div class="first-box">
+        <span class="shift-camera-button">LOGIN IN</span>
+    </div>
+    <div class="login-form second-box">
+        <form action="user/login" method="post" class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="u" lay-verify="required" placeholder="输入用户名" autocomplete="off"
+                           class="layui-input">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="text" name="p" lay-verify="required" placeholder="输入密码" autocomplete="off"
-                       class="layui-input">
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="p" lay-verify="required" placeholder="输入密码" autocomplete="off"
+                           class="layui-input">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn login-btn fr" lay-submit>登陆</button>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn login-btn fr" lay-submit>登陆</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
+<style>
+    html, body {
+        overflow: hidden;
+    }
+</style>
+<script src='__STATIC__/bgFx/js/TweenMax.min.js'></script>
+<script src='__STATIC__/bgFx/js/three.min.js'></script>
+<script src="__STATIC__/bgFx/js/index.js"></script>
