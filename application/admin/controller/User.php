@@ -24,9 +24,23 @@ class User extends Common
      * @Auth LAUSHOW
      * @DateTime 2018/10/26 16:57
      */
-    public function login(){
-
-        return $this->fetch();
+    public function login()
+    {
+        if (IS_POST == true) {
+            $uname = input('u/s', '', 'trim,strip_tags,htmlspecialchars');
+            $passwd = input('p/s', '', 'trim,strip_tags,htmlspecialchars');
+            if (!empty($uname) && !empty($passwd)) {
+                if ($userInfo = model('user')->check_user($uname,'user_id,user_name,password,salt')) {
+                    if ($userInfo['password'] === md5(md5($passwd) . $userInfo['salt'])) {
+                        session('ROLE_AUTH',json_encode(['uid'=>$userInfo['user_id']]));
+                        $this->success('登陆成功','/admin');
+                    }
+                }
+            }
+            return_json('用户名或密码错误', -1);
+        } else {
+            return $this->fetch();
+        }
     }
 
 }

@@ -11,7 +11,7 @@ namespace app\admin\model;
 
 use think\Model;
 
-class Common extends Model
+class BaseModel extends Model
 {
 
     public function __construct($data = [])

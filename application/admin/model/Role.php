@@ -9,7 +9,7 @@
 namespace app\admin\model;
 
 
-class Role extends Common
+class Role extends BaseModel
 {
 
     public function __construct(array $data = [])

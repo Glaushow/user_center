@@ -587,3 +587,20 @@ if (!function_exists('collection')) {
         }
     }
 }
+
+/**
+ * @description [输出JSON]
+ * @param array $params
+ * @auth laushow
+ * @data 2018/11/1
+ */
+function return_json($msg = '', $code = 1, $data = [])
+{
+    $data = [
+        'code' => (isset($code) && is_numeric($code)) ? $code : 1,
+        'msg' => isset($msg) ? $msg : '',
+        'data' => isset($data) ? $data : '',
+    ];
+    header('content-type:application/json;charset=utf8');
+    die(json_encode($data));
+}

@@ -18,6 +18,9 @@ class Common extends Role
     {
         parent::__construct($request);
         $this->check_login();
+        define("IS_POST",($_SERVER['REQUEST_METHOD']=='POST')?TRUE:FALSE);
+        define("IS_GET",($_SERVER['REQUEST_METHOD']=='GET')?TRUE:FALSE);
+        define('IS_METHOD', $_SERVER['REQUEST_METHOD']);
     }
 
     public function _initialize()
@@ -30,9 +33,10 @@ class Common extends Role
      * @Auth LAUSHOW
      * @DateTime 2018/10/26 16:54
      */
-    private function check_login(){
-        if(empty($this->uid) || empty($this->role)){
-            if($this->controller != 'user' && $this->action != 'login'){
+    private function check_login()
+    {
+        if (empty($this->uid) || empty($this->role)) {
+            if ($this->controller != 'user' && $this->action != 'login') {
                 $this->redirect('user/login');
             }
         }
