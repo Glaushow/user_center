@@ -198,11 +198,11 @@ window.addEventListener("mousemove", function (event) {
     normalizedMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 
-var introContainer = $('.intro-container');
-var skyContainer = $('.sky-container');
+var introContainer = $('.shift-camera-button');
+var skyContainer = $('.second-box');
 var xMark = $('.x-mark');
 
-$('.shift-camera-button').click(function () {
+introContainer.click(function () {
     var introTimeline = new TimelineMax();
     introTimeline.add([TweenLite.fromTo(introContainer, 0.5, {opacity: 1}, {
         opacity: 0,

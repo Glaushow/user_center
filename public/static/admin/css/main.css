@@ -28,14 +28,15 @@ html, body {
 .login-form {
     width: 600px;
     height: 450px;
-    margin: 20% auto 0 auto;
+    margin: 0% auto 0 auto;
+    color:#fff;
 }
 
 .login-form .login-btn {
     width: 30%;
 }
 .login-box .second-box{
-    display:none;
+    opacity: 0;
 }
 .login-box .first-box{
     margin: 20% auto 0px auto;
@@ -46,7 +47,7 @@ html, body {
     font-size:36px;
     padding:5px 10px;
     cursor:pointer;
-
+    display:inline-table;
     border: 1px solid white;
     transform: skewX(-20deg);
     height: 32px;
@@ -54,6 +55,58 @@ html, body {
     overflow: hidden;
     position: relative;
     transition: .10s ease-out;
+}
+.shift-camera-button{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'brandon-grotesque', sans-serif;
+    text-transform: uppercase;
+    min-width: 200px;
+    margin-top: 30px;
+}
+.shift-camera-button .border{
+    border: 1px solid white;
+    transform: skewX(-20deg);
+    height: 32px;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    transition: .10s ease-out;
+}
+.shift-camera-button .border .left-plane {
+    left: 0;
+    transform: translateX(-100%);
+}
+.shift-camera-button .border .right-plane {
+    right: 0;
+    transform: translateX(100%);
+}
+.shift-camera-button .text{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .15s ease-out;
+}
+.shift-camera-button .border .left-plane,
+.shift-camera-button .border .right-plane {
+    position: absolute;
+    background: white;
+    height: 32px;
+    width: 100px;
+    transition: .15s ease-out;
+}
+
+.shift-camera-button:hover .border {
+    box-shadow: 0px 0px 10px 0px white;
+}
+.shift-camera-button:hover .border .left-plane, .button:hover .border .right-plane {
+    transform: translateX(0%);
+}
+.shift-camera-button:hover .text {
+    color: #121212;
 }
 /*** login end ***/
 
