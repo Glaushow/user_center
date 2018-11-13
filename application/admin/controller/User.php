@@ -32,8 +32,8 @@ class User extends Common
             if (!empty($uname) && !empty($passwd)) {
                 if ($userInfo = model('user')->check_user($uname,'user_id,user_name,password,salt')) {
                     if ($userInfo['password'] === md5(md5($passwd) . $userInfo['salt'])) {
-                        session('ROLE_AUTH',json_encode(['uid'=>$userInfo['user_id']]));
-                        $this->success('登陆成功','/admin');
+                        session('ROLE_AUTH',json_encode(['uid'=>$userInfo['user_id'],'role'=>0]));
+                        return_json('登陆成功', 1,null,'/admin');
                     }
                 }
             }

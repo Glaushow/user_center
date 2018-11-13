@@ -35,9 +35,19 @@ class Common extends Role
      */
     private function check_login()
     {
-        if (empty($this->uid) || empty($this->role)) {
-            if ($this->controller != 'user' && $this->action != 'login') {
-                $this->redirect('user/login');
+        if($role_auth = session('ROLE_AUTH')){
+            $role_auth = json_decode($role_auth,true);
+            array_walk($role_auth,function($v,$k){
+                $this->$k=$v;
+            });
+        }
+        if (isset($this->uid) === false || isset($this->role) === false) {
+            if ($this->controller !== 'user' && $this->action !== 'login') {
+                $this->redirect('/user/login');
+            }
+        } else {
+            if ($this->controller === 'user' && $this->action === 'login') {
+                $this->redirect('/admin');
             }
         }
     }

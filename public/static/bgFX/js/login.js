@@ -13,6 +13,7 @@ var darkBlue = {
     g: 52,
     b: 74
 };
+
 var baseColorRGB = darkBlue;
 var baseColor = "rgb(" + baseColorRGB.r + "," + baseColorRGB.g + "," + baseColorRGB.b + ")";
 var nearStars = undefined,
@@ -23,28 +24,38 @@ function init() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     renderer = new THREE.WebGLRenderer();
+
+    // Scene initialization
     camera.position.z = 50;
+
     renderer.setClearColor("#121212", 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     document.body.appendChild(renderer.domElement);
+    // Lights
     var topLight = new THREE.DirectionalLight(0xffffff, 1);
     topLight.position.set(0, 1, 1).normalize();
     scene.add(topLight);
+
     var bottomLight = new THREE.DirectionalLight(0xffffff, 0.4);
     bottomLight.position.set(1, -1, 1).normalize();
     scene.add(bottomLight);
+
     var skyLightRight = new THREE.DirectionalLight(0x666666, 0.2);
     skyLightRight.position.set(-1, -1, 0.2).normalize();
     scene.add(skyLightRight);
+
     var skyLightCenter = new THREE.DirectionalLight(0x666666, 0.2);
     skyLightCenter.position.set(-0, -1, 0.2).normalize();
     scene.add(skyLightCenter);
+
     var skyLightLeft = new THREE.DirectionalLight(0x666666, 0.2);
     skyLightLeft.position.set(1, -1, 0.2).normalize();
     scene.add(skyLightLeft);
+
+    // Mesh creation
     var geometry = new THREE.PlaneGeometry(400, 400, 70, 70);
     var darkBlueMaterial = new THREE.MeshPhongMaterial({
         color: 0xffffff,
@@ -52,6 +63,7 @@ function init() {
         side: THREE.DoubleSide,
         vertexColors: THREE.FaceColors
     });
+
     geometry.vertices.forEach(function (vertice) {
         vertice.x += (Math.random() - 0.5) * 4;
         vertice.y += (Math.random() - 0.5) * 4;
@@ -60,20 +72,26 @@ function init() {
         vertice.dy = Math.random() - 0.5;
         vertice.randomDelay = Math.random() * 5;
     });
+
     for (var i = 0; i < geometry.faces.length; i++) {
         geometry.faces[i].color.setStyle(baseColor);
         geometry.faces[i].baseColor = baseColorRGB;
     }
+
     plane = new THREE.Mesh(geometry, darkBlueMaterial);
     scene.add(plane);
+
     farthestStars = createStars(1200, 420, "#0952BD");
     farStars = createStars(1200, 370, "#A5BFF0");
     nearStars = createStars(1200, 290, "#118CD6");
+
     scene.add(farthestStars);
     scene.add(farStars);
     scene.add(nearStars);
+
     farStars.rotation.x = 0.25;
     nearStars.rotation.x = 0.25;
+
 }
 
 function createStars(amount, yDistance) {
@@ -104,16 +122,12 @@ function render() {
     var vertices = plane.geometry.vertices;
 
     for (var i = 0; i < vertices.length; i++) {
-        // Ease back to original vertice position while still maintaining sine wave
         vertices[i].x -= Math.sin(timer + vertices[i].randomDelay) / 40 * vertices[i].dx;
         vertices[i].y += Math.sin(timer + vertices[i].randomDelay) / 40 * vertices[i].dy;
-        // ((vertices[i].x - vertices[i].originalPosition.x) * 0.1) +
     }
 
-    // Determine where ray is being projected from camera view
     raycaster.setFromCamera(normalizedMouse, camera);
 
-    // Send objects being intersected into a variable
     var intersects = raycaster.intersectObjects([plane]);
 
     if (intersects.length > 0) {
@@ -155,23 +169,28 @@ function render() {
 }
 
 init();
+
 window.addEventListener("resize", function () {
 
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
 window.addEventListener("mousemove", function (event) {
 
     // Normalize mouse coordinates
     normalizedMouse.x = event.clientX / window.innerWidth * 2 - 1;
     normalizedMouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
+
 var introContainer = $('.shift-camera-button');
 var skyContainer = $('.second-box');
 var xMark = $('.x-mark');
-introContainer.click(function () {
+
+$('.shift-camera-button').click(function () {
     var introTimeline = new TimelineMax();
+
     introTimeline.add([TweenLite.fromTo(introContainer, 0.5, {opacity: 1}, {
         opacity: 0,
         ease: Power3.easeIn
@@ -182,13 +201,16 @@ introContainer.click(function () {
         y: 120,
         ease: Power3.easeInOut
     }), TweenLite.to(plane.scale, 3, {x: 2, ease: Power3.easeInOut})]);
+
     introTimeline.add([TweenLite.to(xMark, 2, {
         opacity: 1,
         ease: Power3.easeInOut
     }), TweenLite.to(skyContainer, 2, {opacity: 1, ease: Power3.easeInOut})]);
 });
+
 $('.x-mark').click(function () {
     var outroTimeline = new TimelineMax();
+
     outroTimeline.add([TweenLite.to(xMark, 0.5, {
         opacity: 0,
         ease: Power3.easeInOut
@@ -202,3 +224,5 @@ $('.x-mark').click(function () {
 
     outroTimeline.add([TweenLite.to(introContainer, 0.5, {opacity: 1, ease: Power3.easeIn})]);
 });
+
+render();
