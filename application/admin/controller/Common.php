@@ -41,9 +41,9 @@ class Common extends Role
                 $this->$k=$v;
             });
         }
-        if (isset($this->uid) === false || isset($this->role) === false) {
+        if (empty($this->uid)) {
             if ($this->controller !== 'user' && $this->action !== 'login') {
-                $this->redirect('/user/login');
+                $this->redirect('/admin/user/login');
             }
         } else {
             if ($this->controller === 'user' && $this->action === 'login') {
